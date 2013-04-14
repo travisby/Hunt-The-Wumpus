@@ -1,10 +1,14 @@
 data Room = Room {
     roomID :: Int
-    } deriving (Show)
+    }
+instance Show Room where
+    show room = show (roomRelations(getMapRelations) !! ((roomID room) + 1))
 
 data Map = Map [Room] deriving (Show)
 
-data MapRoomRelation = MapRoomRelation [[Int]] deriving (Show)
+data MapRoomRelation = MapRoomRelation  {
+    roomRelations :: [[Int]]
+    } deriving (Show)
 
 -- Allows us to have dynamic map size generation in the future.
 generateMapRelations :: Int -> [[Int]]
