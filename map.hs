@@ -1,5 +1,7 @@
 -- Map
-data Map = Map [Room] deriving (Show)
+data Map = Map {
+    rooms :: [Room]
+    } deriving (Show)
 
 -- Room
 data Room = Room {
