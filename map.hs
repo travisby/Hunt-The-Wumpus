@@ -33,3 +33,7 @@ generateMapRelations 20 = [
     ]
 
 generateMapRelations _ = error "Sorry bud, this is not implimented.  Please only use two or twenty"
+
+-- Statically defined at twenty for now
+getMapRelations :: MapRoomRelation
+getMapRelations = MapRoomRelation $ generateMapRelations 20
