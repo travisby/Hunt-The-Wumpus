@@ -4,6 +4,9 @@ data Map = Map {
     state :: ()
     } deriving (Show)
 
+getRoom :: Map -> Int -> Room
+getRoom map n = rooms map !! (n + 1)
+
 -- Room
 data Room = Room {
     roomID :: Int
