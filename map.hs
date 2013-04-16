@@ -1,6 +1,7 @@
 -- Map
 data Map = Map {
-    rooms :: [Room]
+    rooms :: [Room],
+    state :: ()
     } deriving (Show)
 
 -- Room
