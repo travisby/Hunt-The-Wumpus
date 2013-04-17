@@ -13,16 +13,14 @@ data Room = Room {
     }
 
 instance Show Room where
-    show room = show (roomRelations getMapRelations !! (roomID room + 1))
+    show room = show (getMapRelations !! (roomID room + 1))
 
 -- MapRoomRelation
-data MapRoomRelation = MapRoomRelation  {
-    roomRelations :: [[Int]]
-    } deriving (Show)
+type MapRoomRelation = [[Int]]
 
 -- Map Utilities
 -- Allows us to have dynamic map size generation in the future.
-generateMapRelations :: Int -> [[Int]]
+generateMapRelations :: Int -> MapRoomRelation
 generateMapRelations 2 = [[1],[2]]
 generateMapRelations 20 = [
     [5,2,8],
@@ -46,9 +44,8 @@ generateMapRelations 20 = [
     [11,18,20],
     [13,16,19]
     ]
-
 generateMapRelations _ = error "Sorry bud, this is not implimented.  Please only use two or twenty"
 
 -- Statically defined at twenty for now
 getMapRelations :: MapRoomRelation
-getMapRelations = MapRoomRelation $ generateMapRelations 20
+getMapRelations = generateMapRelations 20
