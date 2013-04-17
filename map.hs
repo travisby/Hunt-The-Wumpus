@@ -2,18 +2,22 @@
 data Map = Map {
     rooms :: [Room],
     state :: ()
-    } deriving (Show)
+    }
+instance Show Map where
+    show ourMap = foldr (++) [] (map show (rooms ourMap))
 
 getRoom :: Map -> Int -> Room
 getRoom map n = rooms map !! (n + 1)
 
 -- Room
 data Room = Room {
-    roomID :: Int
-    }
+    roomID :: Int,
+    connectedRooms :: [Int]
+    } deriving Show
 
-instance Show Room where
-    show room = show (getMapRelations !! (roomID room + 1))
+-- instance Show Room where
+--     show room = show myRoomID ++ show (generateMapRelations !! (myRoomID - 1))
+        -- where myRoomID = roomID room
 
 -- MapRoomRelation
 type MapRoomRelation = [[Int]]
@@ -46,6 +50,6 @@ generateMapRelations 20 = [
     ]
 generateMapRelations _ = error "Sorry bud, this is not implimented.  Please only use two or twenty"
 
--- Statically defined at twenty for now
-getMapRelations :: MapRoomRelation
-getMapRelations = generateMapRelations 20
+getMap :: Int -> Map
+getMap numRooms = Map [Room x (relations !! (numRooms -1)) | x <- [1..numRooms]] ()
+    where relations = generateMapRelations numRooms
