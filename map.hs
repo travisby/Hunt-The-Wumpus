@@ -3,8 +3,10 @@ data Map = Map {
     rooms :: [Room],
     state :: ()
     }
+
 instance Show Map where
-    show ourMap = foldr (++) [] (map show (rooms ourMap))
+    show ourMap = foldr withNewLines [] (reverse (map show (rooms ourMap)))
+        where withNewLines acc str = str ++ acc ++ "\n"
 
 getRoom :: Map -> Int -> Room
 getRoom map n = rooms map !! (n + 1)
