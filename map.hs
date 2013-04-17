@@ -15,7 +15,10 @@ getRoom map n = rooms map !! (n + 1)
 data Room = Room {
     roomID :: Int,
     connectedRooms :: [Int]
-    } deriving Show
+    }
+instance Show Room where
+    show room = show (roomID room) ++ ": " ++ show (connectedRooms room)
+
 
 -- instance Show Room where
 --     show room = show myRoomID ++ show (generateMapRelations !! (myRoomID - 1))
