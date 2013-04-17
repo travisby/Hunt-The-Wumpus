@@ -1,8 +1,10 @@
 -- Map
 data Map = Map {
     rooms :: [Room],
-    state :: ()
+    state :: State
     }
+
+type State = ()
 
 instance Show Map where
     show ourMap = foldr withNewLines [] (reverse (map show (rooms ourMap)))
@@ -24,19 +26,19 @@ instance Show Room where
 --     show room = show myRoomID ++ show (generateMapRelations !! (myRoomID - 1))
         -- where myRoomID = roomID room
 
--- MapRoomRelation
-type MapRoomRelation = [[Int]]
+-- RoomRoomsRelation
+type RoomRoomsRelation = [Int]
 
 -- Map Utilities
 -- Allows us to have dynamic map size generation in the future.
-generateMapRelations :: Int -> MapRoomRelation
+generateMapRelations :: Int -> [RoomRoomsRelation]
 generateMapRelations 2 = [[1],[2]]
 generateMapRelations 20 = [
-    [5,2,8],
+    [2,5,8],
     [1,3,10],
     [2,4,12],
     [3,5,14],
-    [4,1,6],
+    [1,4,6],
     [5,7,15],
     [6,8,17],
     [1,7,9],
@@ -58,3 +60,7 @@ generateMapRelations _ = error "Sorry bud, this is not implimented.  Please only
 getMap :: Int -> Map
 getMap numRooms = Map [Room x (relations !! (x - 1)) | x <- [1..numRooms]] ()
     where relations = generateMapRelations numRooms
+
+-- Takes a Map and a State object, and sets the state
+setMap :: Map -> State -> Map
+setMap ourMap = Map (rooms ourMap)
