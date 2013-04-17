@@ -4,7 +4,11 @@ data Map = Map {
     state :: State
     }
 
-type State = ()
+data State = State {
+    wumpusLocation :: Int,
+    playerLocation :: Int
+
+}
 
 instance Show Map where
     show ourMap = foldr withNewLines [] (reverse (map show (rooms ourMap)))
@@ -58,7 +62,7 @@ generateMapRelations 20 = [
 generateMapRelations _ = error "Sorry bud, this is not implimented.  Please only use two or twenty"
 
 getMap :: Int -> Map
-getMap numRooms = Map [Room x (relations !! (x - 1)) | x <- [1..numRooms]] ()
+getMap numRooms = Map [Room x (relations !! (x - 1)) | x <- [1..numRooms]] (State 0 0)
     where relations = generateMapRelations numRooms
 
 -- Takes a Map and a State object, and sets the state
