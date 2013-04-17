@@ -51,5 +51,5 @@ generateMapRelations 20 = [
 generateMapRelations _ = error "Sorry bud, this is not implimented.  Please only use two or twenty"
 
 getMap :: Int -> Map
-getMap numRooms = Map [Room x (relations !! (numRooms -1)) | x <- [1..numRooms]] ()
+getMap numRooms = Map [Room x (relations !! (x - 1)) | x <- [1..numRooms]] ()
     where relations = generateMapRelations numRooms
