@@ -11,4 +11,4 @@ data State = State {
 }
 
 stateStart :: State
-stateStart = State (Wumpus 0) (Player 0 0)
+stateStart = State wumpusStart playerStart
