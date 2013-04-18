@@ -1,7 +1,7 @@
 module Map (
     Map(Map), rooms, state,
     State(State), wumpus, player,
-    Room(Room), roomID, connectedRooms, getRoom
+    Room(Room), roomID, connectedRooms, getRoom, getAdjacentRoomIDs, getMap
 ) where
 
 import State
@@ -11,7 +11,6 @@ data Map = Map {
     state :: State
     }
 
-
 data Room = Room {
     roomID :: Int,
     connectedRooms :: [Int]
@@ -20,20 +19,23 @@ data Room = Room {
 type RoomID = Int
 type RoomRoomsRelation = [Int]
 
+getRoom :: Map -> Int -> Room
+getRoom map n = rooms map !! (n + 1)
+
+getAdjacentRoomIDs :: RoomID -> Map -> [RoomID]
+getAdjacentRoomIDs myID myMap = connectedRooms (rooms myMap !! (myID - 1))
+
+getMap :: Int -> Map
+getMap numRooms = Map [Room x (relations !! (x - 1)) | x <- [1..numRooms]] stateStart
+    where relations = generateMapRelations numRooms
+
 instance Show Map where
     show ourMap = foldr withNewLines [] (reverse (map show (rooms ourMap)))
         where withNewLines acc str = str ++ acc ++ "\n"
 
-getRoom :: Map -> Int -> Room
-getRoom map n = rooms map !! (n + 1)
-
--- Room
-
 instance Show Room where
     show room = show (roomID room) ++ ": " ++ show (connectedRooms room)
 
-getAdjacentRoomIDs :: RoomID -> Map -> [RoomID] 
-getAdjacentRoomIDs myID myMap = connectedRooms (rooms myMap !! (myID - 1))
 
 -- Allows us to have dynamic map size generation in the future.
 generateMapRelations :: Int -> [RoomRoomsRelation]
@@ -61,11 +63,3 @@ generateMapRelations 20 = [
     [13,16,19]
     ]
 generateMapRelations _ = error "Sorry bud, this is not implimented.  Please only use two or twenty"
-
-getMap :: Int -> Map
-getMap numRooms = Map [Room x (relations !! (x - 1)) | x <- [1..numRooms]] stateStart
-    where relations = generateMapRelations numRooms
-
--- Takes a Map and a State object, and sets the state
-setMap :: Map -> State -> Map
-setMap ourMap = Map (rooms ourMap)
