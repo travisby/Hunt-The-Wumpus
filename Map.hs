@@ -1,14 +1,28 @@
--- Map
+module Map (
+    Map, rooms, state,
+    State, wumpus, player,
+    Room, roomID, connectedRooms, getRoom
+) where
+
+import Player
+
 data Map = Map {
     rooms :: [Room],
     state :: State
     }
 
 data State = State {
-    wumpusLocation :: Int,
-    playerLocation :: Int
-
+    wumpus :: Wumpus,
+    player :: Player
 }
+
+data Room = Room {
+    roomID :: Int,
+    connectedRooms :: [Int]
+    }
+
+type RoomID = Int
+type RoomRoomsRelation = [Int]
 
 instance Show Map where
     show ourMap = foldr withNewLines [] (reverse (map show (rooms ourMap)))
@@ -18,22 +32,13 @@ getRoom :: Map -> Int -> Room
 getRoom map n = rooms map !! (n + 1)
 
 -- Room
-data Room = Room {
-    roomID :: Int,
-    connectedRooms :: [Int]
-    }
+
 instance Show Room where
     show room = show (roomID room) ++ ": " ++ show (connectedRooms room)
 
+getAdjacentRoomIDs :: RoomID -> Map -> [RoomID] 
+getAdjacentRoomIDs myID myMap = connectedRooms (rooms myMap !! (myID - 1))
 
--- instance Show Room where
---     show room = show myRoomID ++ show (generateMapRelations !! (myRoomID - 1))
-        -- where myRoomID = roomID room
-
--- RoomRoomsRelation
-type RoomRoomsRelation = [Int]
-
--- Map Utilities
 -- Allows us to have dynamic map size generation in the future.
 generateMapRelations :: Int -> [RoomRoomsRelation]
 generateMapRelations 2 = [[1],[2]]
