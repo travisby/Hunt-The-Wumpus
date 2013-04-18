@@ -4,18 +4,13 @@ module Map (
     Room(Room), roomID, connectedRooms, getRoom
 ) where
 
-import Wumpus
-import Player
+import State
 
 data Map = Map {
     rooms :: [Room],
     state :: State
     }
 
-data State = State {
-    wumpus :: Wumpus,
-    player :: Player
-}
 
 data Room = Room {
     roomID :: Int,
@@ -74,6 +69,3 @@ getMap numRooms = Map [Room x (relations !! (x - 1)) | x <- [1..numRooms]] state
 -- Takes a Map and a State object, and sets the state
 setMap :: Map -> State -> Map
 setMap ourMap = Map (rooms ourMap)
-
-stateStart :: State
-stateStart = State (Wumpus 0) (Player 0 0)
