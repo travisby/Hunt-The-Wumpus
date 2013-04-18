@@ -1,9 +1,10 @@
 module Map (
-    Map, rooms, state,
-    State, wumpus, player,
-    Room, roomID, connectedRooms, getRoom
+    Map(Map), rooms, state,
+    State(State), wumpus, player,
+    Room(Room), roomID, connectedRooms, getRoom
 ) where
 
+import Wumpus
 import Player
 
 data Map = Map {
@@ -67,9 +68,12 @@ generateMapRelations 20 = [
 generateMapRelations _ = error "Sorry bud, this is not implimented.  Please only use two or twenty"
 
 getMap :: Int -> Map
-getMap numRooms = Map [Room x (relations !! (x - 1)) | x <- [1..numRooms]] (State 0 0)
+getMap numRooms = Map [Room x (relations !! (x - 1)) | x <- [1..numRooms]] stateStart
     where relations = generateMapRelations numRooms
 
 -- Takes a Map and a State object, and sets the state
 setMap :: Map -> State -> Map
 setMap ourMap = Map (rooms ourMap)
+
+stateStart :: State
+stateStart = State (Wumpus 0) (Player 0 0)

@@ -1,5 +1,5 @@
 module Player(
-    Player
+    Player(Player), numAmmo, location
 ) where 
 
 data Player = Player {
