@@ -6,3 +6,9 @@ data Player = Player {
     numAmmo :: Int,
     location :: Int
 }
+
+-- smell
+-- touch
+-- hear
+
+-- move
