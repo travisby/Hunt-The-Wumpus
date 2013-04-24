@@ -1,8 +1,9 @@
 module Map (
     Map(Map), rooms, state,
-    State(State), wumpus, player,
-    Room(Room), roomID, connectedRooms, getRoom, getAdjacentRoomIDs, getMap
+    State(State), wumpus, player, Room(Room), roomID, connectedRooms, getRoom, getAdjacentRoomIDs, getMap
 ) where
+
+import Data.Random.Extras
 
 import State
 
@@ -63,3 +64,11 @@ generateMapRelations 20 = [
     [13,16,19]
     ]
 generateMapRelations _ = error "Sorry bud, this is not implimented.  Please only use two or twenty"
+
+getRandomPointOnMap gameMap = head shuffle listOfRoomsLeft
+    where
+        listOfRooms = rooms gameMap
+        wumpusLocation = location (wumpus (state map))
+        playerLocation = location (player (state map))
+        listOfRoomsWithoutWumpus = filter (/=wumpusLocation) listOfRooms
+        listOfRoomsWithoutPlayerOrWumpus = filter (/=playerLocation) listOfRoomsWithoutWumpus
