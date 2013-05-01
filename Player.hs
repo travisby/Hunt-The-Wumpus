@@ -1,5 +1,6 @@
 module Player (
-    Player(Player), room
+    Player(Player), room,
+    move
 ) where
 
 import Map
@@ -10,6 +11,8 @@ data Player = Player {
 }
 
 move newSpot player gameMap
-    | newSpot `elem` possibleRooms = Player (getRoom gameMap newSpot) (numArrows player)
+    | isAdjacentToPlayer newSpot player gameMap = Player newSpot (numArrows player)
     | otherwise = error "Cannot move into that room"
+
+isAdjacentToPlayer newRoom player gameMap = roomID newRoom `elem` possibleRooms
     where possibleRooms = connectedRooms (room player)
