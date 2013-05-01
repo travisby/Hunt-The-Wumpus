@@ -1,10 +1,10 @@
 module Player (
-    Player(Player)
+    Player(Player), room
 ) where
 
 import Map
 
 data Player = Player {
-    roomID      :: Int,
+    room        :: Room,
     numArrows   :: Int
 }

@@ -1,9 +1,9 @@
 module Wumpus (
-    Wumpus(Wumpus)
+    Wumpus(Wumpus), room
 ) where
 
 import Map
 
 data Wumpus = Wumpus {
-    roomID      :: Int
+    room    :: Room
 }
