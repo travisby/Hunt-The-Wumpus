@@ -1,14 +1,12 @@
 module State (
-    State(State), wumpus, player, stateStart
 ) where
 
 import Player
 import Wumpus
+import Map
 
 data State = State {
-    wumpus :: Wumpus,
-    player :: Player
+    player  :: Player,
+    wumpus  :: Wumpus,
+    map     :: Map
 }
-
-stateStart :: State
-stateStart = State wumpusStart playerStart

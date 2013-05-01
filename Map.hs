@@ -1,16 +1,13 @@
 module Map (
-    Map(Map), rooms, state,
-    State(State), wumpus, player, Room(Room), roomID, connectedRooms, getRoom, getAdjacentRoomIDs, getMap
+    Map(Map), rooms,
+    Room(Room), roomID, connectedRooms, getRoom, getAdjacentRoomIDs, getMap
 ) where
 
 import Data.Random.Extras
 
-import State
-
 data Map = Map {
-    rooms :: [Room],
-    state :: State
-    }
+    rooms :: [Room]
+}
 
 data Room = Room {
     roomID :: Int,
@@ -27,7 +24,7 @@ getAdjacentRoomIDs :: RoomID -> Map -> [RoomID]
 getAdjacentRoomIDs myID myMap = connectedRooms (rooms myMap !! (myID - 1))
 
 getMap :: Int -> Map
-getMap numRooms = Map [Room x (relations !! (x - 1)) | x <- [1..numRooms]] stateStart
+getMap numRooms = Map [Room x (relations !! (x - 1)) | x <- [1..numRooms]]
     where relations = generateMapRelations numRooms
 
 instance Show Map where
@@ -64,11 +61,3 @@ generateMapRelations 20 = [
     [13,16,19]
     ]
 generateMapRelations _ = error "Sorry bud, this is not implimented.  Please only use two or twenty"
-
-getRandomPointOnMap gameMap = head shuffle listOfRoomsLeft
-    where
-        listOfRooms = rooms gameMap
-        wumpusLocation = location (wumpus (state map))
-        playerLocation = location (player (state map))
-        listOfRoomsWithoutWumpus = filter (/=wumpusLocation) listOfRooms
-        listOfRoomsWithoutPlayerOrWumpus = filter (/=playerLocation) listOfRoomsWithoutWumpus

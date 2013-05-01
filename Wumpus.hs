@@ -1,10 +1,9 @@
 module Wumpus (
-    Wumpus(Wumpus), location, wumpusStart
+    Wumpus(Wumpus)
 ) where
 
-data Wumpus = Wumpus {
-    location :: Int
-}
+import Map
 
-wumpusStart :: Wumpus
-wumpusStart = Wumpus 0
+data Wumpus = Wumpus {
+    roomID      :: Int
+}
