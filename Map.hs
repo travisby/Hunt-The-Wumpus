@@ -1,6 +1,7 @@
 module Map (
     Map(Map), rooms,
-    Room(Room), roomID, connectedRooms, getRoom, getAdjacentRoomIDs, getMap
+    Room(Room), roomID, connectedRooms, getRoom, getAdjacentRoomIDs, getMap,
+    getRandomPointOnMap
 ) where
 
 import Data.Random.Extras
@@ -61,3 +62,5 @@ generateMapRelations 20 = [
     [13,16,19]
     ]
 generateMapRelations _ = error "Sorry bud, this is not implimented.  Please only use two or twenty"
+
+getRandomPointOnMap gameMap = safeChoice (rooms gameMap)
