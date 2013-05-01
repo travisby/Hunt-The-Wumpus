@@ -11,8 +11,5 @@ data Player = Player {
 }
 
 move newSpot player gameMap
-    | isAdjacentToPlayer newSpot player gameMap = Player newSpot (numArrows player)
+    | isAdjacentToCreature newSpot (room player) gameMap = Player newSpot (numArrows player)
     | otherwise = error "Cannot move into that room"
-
-isAdjacentToPlayer newRoom player gameMap = roomID newRoom `elem` possibleRooms
-    where possibleRooms = connectedRooms (room player)
