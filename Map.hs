@@ -1,7 +1,7 @@
 module Map (
     Map(Map), rooms,
     Room(Room), roomID, connectedRooms, getRoom, getAdjacentRoomIDs, getMap,
-    getRandomPointOnMap, isAdjacentToCreature, getPossibleRooms
+    getRandomPointOnMap, isAdjacentToCreature, getPossibleRooms, areTwoRoomsAdjacent
 ) where
 
 import Data.Random.Extras
@@ -71,3 +71,5 @@ isAdjacentToCreature newRoom currentRoom gameMap = roomID newRoom `elem` possibl
     where possibleRooms = map roomID (getPossibleRooms gameMap currentRoom)
 
 getPossibleRooms gameMap room = map (gameMap `getRoom`) (connectedRooms room)
+
+areTwoRoomsAdjacent room1 room2 gameMap = room1 `elem` getPossibleRooms gameMap room2
