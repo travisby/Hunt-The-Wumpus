@@ -1,7 +1,7 @@
 module Map (
     Map(Map), rooms,
     Room(Room), roomID, connectedRooms, getRoom, getAdjacentRoomIDs, getMap,
-    getRandomPointOnMap, isAdjacentToCreature
+    getRandomPointOnMap, isAdjacentToCreature, getPossibleRooms
 ) where
 
 import Data.Random.Extras
@@ -66,4 +66,6 @@ generateMapRelations _ = error "Sorry bud, this is not implimented.  Please only
 getRandomPointOnMap gameMap = safeChoice (rooms gameMap)
 
 isAdjacentToCreature newRoom currentRoom gameMap = roomID newRoom `elem` possibleRooms
-    where possibleRooms = connectedRooms currentRoom
+    where possibleRooms = map roomID (getPossibleRooms gameMap currentRoom)
+
+getPossibleRooms gameMap room = map (gameMap `getRoom`) (connectedRooms room)
