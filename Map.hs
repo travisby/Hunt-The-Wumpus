@@ -35,6 +35,8 @@ instance Show Map where
 instance Show Room where
     show room = show (roomID room) ++ ": " ++ show (connectedRooms room)
 
+instance Eq Room where
+    (Room x _) == (Room y _) = x == y
 
 -- Allows us to have dynamic map size generation in the future.
 generateMapRelations :: Int -> [RoomRoomsRelation]
