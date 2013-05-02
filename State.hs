@@ -13,3 +13,5 @@ data State = State {
 
 start playerStart wumpusStart = State (Player playerStart 3) (Wumpus wumpusStart)
     where gameMap = getMap 20
+
+areThePlayerAndTheWumpusAdjacent (State player wumpus gameMap) = areTwoRoomsAdjacent (Player.room player) (Wumpus.room wumpus) gameMap
