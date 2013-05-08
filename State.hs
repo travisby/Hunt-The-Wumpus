@@ -2,7 +2,7 @@ module State (
     State(player, wumpus, ourGameMap),
     start,
     getPossibleRoomsStr,
-    winning
+    winning, makeMoveFromStr
 ) where
 
 import Player
@@ -34,3 +34,7 @@ winning state
     | not (Player.alive (player state)) = 1
     | not (Wumpus.alive (wumpus state)) = 2
     | otherwise = 0
+
+makeMoveFromStr "shoot" roomNum state = Player.shoot roomNum (player state) (ourGameMap state)
+makeMoveFromStr "move" roomNum state = Player.shoot roomNum (player state) (ourGameMap state)
+makeMoveFromStr _ _ _ = error "That was not a valid move!"
