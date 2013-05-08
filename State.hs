@@ -44,7 +44,7 @@ makeMoveFromStr "shoot" roomNum state = State newPlayer newWumpus (ourGameMap st
 makeMoveFromStr "move" roomNum state = State myPlayer (wumpus state) (ourGameMap state)
     where
         newPlayer = Player.move theRoom (player state) theMap
-        myPlayer = if (Player.room newPlayer) == (Wumpus.room theWumpus) then error "You died!" else newPlayer
+        myPlayer = if (Player.room newPlayer) == (Wumpus.room theWumpus) then (Player (Player.room newPlayer) (Player.numArrows newPlayer) False) else newPlayer
         theRoom = Map.getRoom theMap (read roomNum :: Int)
         theMap = ourGameMap state
         theWumpus = wumpus state
