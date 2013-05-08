@@ -69,6 +69,6 @@ generateMapRelations _ = error "Sorry bud, this is not implimented.  Please only
 
 getRandomPointOnMap gameMap = runRVar (choice (rooms gameMap)) DevRandom
 
-getPossibleRooms gameMap room = map (gameMap `getRoom`) (connectedRooms room)
+getPossibleRooms gameMap room = map (\rid -> Room rid (getAdjacentRoomIDs rid gameMap)) (connectedRooms room)
 
 areTwoRoomsAdjacent room1 room2 gameMap = room1 `elem` getPossibleRooms gameMap room2
