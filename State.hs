@@ -21,3 +21,5 @@ areThePlayerAndTheWumpusAdjacent state = areTwoRoomsAdjacent (Player.room ourPla
         ourPlayer = player state
         ourWumpus = wumpus state
         gameMap = ourGameMap state
+
+getPossibleRooms state = Map.getPossibleRooms (ourGameMap state) (Player.room (player state))
