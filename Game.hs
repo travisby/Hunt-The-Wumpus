@@ -2,8 +2,10 @@ import State
 import Map
 
 gameLoop state = do
-    putStrLn $ "[move/shoot] " ++ State.getPossibleRoomsStr state
+    putStrLn "[move/shoot] "
     playerMove <- getLine
+    putStrLn $ "Room " ++ State.getPossibleRoomsStr state
+    playerRoom <- getLine
     return playerMove
 
 main = do
