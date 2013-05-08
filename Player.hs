@@ -1,5 +1,5 @@
 module Player (
-    Player(Player), room, alive,
+    Player(Player), room, alive, numArrows,
     move, shoot, smell
 ) where
 
