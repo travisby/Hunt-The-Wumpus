@@ -1,5 +1,6 @@
 module Wumpus (
-    Wumpus(Wumpus), room, alive
+    Wumpus(Wumpus), room, alive,
+    wumpusIfShot
 ) where
 
 import Map
@@ -15,3 +16,7 @@ move newSpot wumpus gameMap
     | otherwise = error "Cannot move into that room"
 
 getMoveForWumpus wumpus gameMap = safeChoice (getPossibleRooms gameMap (room wumpus))
+
+wumpusIfShot wumpus givenRoom
+    | room wumpus == givenRoom = Wumpus givenRoom False
+    | otherwise = wumpus
