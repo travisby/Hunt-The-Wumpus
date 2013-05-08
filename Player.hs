@@ -12,9 +12,9 @@ data Player = Player {
 }
 
 move newSpot player gameMap
-    | isAdjacentToCreature newSpot (room player) gameMap = Player newSpot (numArrows player) True
-    | otherwise = error "Cannot move into that room"
+    | areTwoRoomsAdjacent newSpot (room player) gameMap = Player newSpot (numArrows player) True
+    | otherwise = error ("Cannot move into that room " ++ (show newSpot))
 
 shoot spot player gameMap
-    | isAdjacentToCreature spot (room player) gameMap = Player (room player) (numArrows player - 1) True
+    | areTwoRoomsAdjacent spot (room player) gameMap = Player (room player) (numArrows player - 1) True
     | otherwise = error "Cannot shoot into that room"

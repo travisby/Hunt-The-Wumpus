@@ -1,7 +1,7 @@
 module Map (
     Map(Map), rooms,
     Room(Room), roomID, connectedRooms, getRoom, getAdjacentRoomIDs, getMap,
-    getRandomPointOnMap, isAdjacentToCreature, getPossibleRooms, areTwoRoomsAdjacent
+    getRandomPointOnMap, getPossibleRooms, areTwoRoomsAdjacent
 ) where
 
 import Data.Random
@@ -68,9 +68,6 @@ generateMapRelations 20 = [
 generateMapRelations _ = error "Sorry bud, this is not implimented.  Please only use two or twenty"
 
 getRandomPointOnMap gameMap = runRVar (choice (rooms gameMap)) DevRandom
-
-isAdjacentToCreature newRoom currentRoom gameMap = roomID newRoom `elem` possibleRooms
-    where possibleRooms = map roomID (getPossibleRooms gameMap currentRoom)
 
 getPossibleRooms gameMap room = map (gameMap `getRoom`) (connectedRooms room)
 
