@@ -1,6 +1,10 @@
 import State
+import Map
 
 main = do
-    putStr "Input: "
-    input <- getLine
-    putStr input
+    let myMap = Map.getMap 20
+    startRoomForPlayer <- Map.getRandomPointOnMap myMap
+    startRoomForWumpus <- Map.getRandomPointOnMap myMap
+    let state = State.start startRoomForPlayer startRoomForWumpus myMap
+
+    putStr $ show 1
