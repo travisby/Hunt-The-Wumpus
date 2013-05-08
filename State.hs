@@ -41,5 +41,11 @@ makeMoveFromStr "shoot" roomNum state = State newPlayer newWumpus (ourGameMap st
         newWumpus = Wumpus.wumpusIfShot (wumpus state) theRoom
         theRoom = Map.getRoom theMap (read roomNum :: Int)
         theMap = ourGameMap state
-makeMoveFromStr "move" roomNum state = state
+makeMoveFromStr "move" roomNum state = State myPlayer (wumpus state) (ourGameMap state)
+    where
+        newPlayer = Player.move theRoom (player state) theMap
+        myPlayer = newPlayer
+        theRoom = Map.getRoom theMap (read roomNum :: Int)
+        theMap = ourGameMap state
+
 makeMoveFromStr _ _ _ = error "That was not a valid move!"
