@@ -1,5 +1,5 @@
 module State (
-    State(player, wumpus, ourGameMap),
+    State(player, wumpus, ourGameMap, State),
     start,
     getPossibleRoomsStr,
     winning, makeMoveFromStr, playerSmell

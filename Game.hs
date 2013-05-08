@@ -1,5 +1,7 @@
 import State
 import Map
+import Wumpus
+
 
 gameLoop state = do
     putStrLn $ State.playerSmell state
@@ -9,9 +11,17 @@ gameLoop state = do
     playerRoom <- getLine
 
     let newState = State.makeMoveFromStr playerMove playerRoom state
+    
+
+    maybeMovedWumpusPosition <- Wumpus.getMoveForWumpus (wumpus state) (ourGameMap state)
+    let maybeNewWumpus = Wumpus maybeMovedWumpusPosition True
 
     let isThereAWinner = State.winning newState
-    if isThereAWinner == 0
+    -- if ((==) isThereAWinner 0) and ((==) playerMove "shoot")
+    if and [((==) isThereAWinner 0), ((==) playerMove "shoot")]
+        -- get moved wumpus
+        then gameLoop (State.State (player newState) maybeNewWumpus (ourGameMap newState))
+    else if isThereAWinner == 0
         then gameLoop newState
     else if isThereAWinner == 1
         -- my way of exiting :P

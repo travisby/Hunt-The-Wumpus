@@ -1,10 +1,12 @@
 module Wumpus (
     Wumpus(Wumpus), room, alive,
-    wumpusIfShot
+    wumpusIfShot, getMoveForWumpus 
 ) where
 
 import Map
 import Data.Random.Extras
+import Data.Random
+import Data.Random.Source.DevRandom
 
 data Wumpus = Wumpus {
     room    :: Room,
@@ -15,7 +17,7 @@ move newSpot wumpus gameMap
     | areTwoRoomsAdjacent newSpot (room wumpus) gameMap = Wumpus newSpot
     | otherwise = error "Cannot move into that room"
 
-getMoveForWumpus wumpus gameMap = safeChoice (getPossibleRooms gameMap (room wumpus))
+getMoveForWumpus wumpus gameMap = runRVar (choice (getPossibleRooms gameMap (room wumpus))) DevRandom
 
 wumpusIfShot wumpus givenRoom
     | room wumpus == givenRoom = Wumpus givenRoom False
