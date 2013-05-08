@@ -1,4 +1,6 @@
 module State (
+    State(player, wumpus, ourGameMap),
+    start
 ) where
 
 import Player
