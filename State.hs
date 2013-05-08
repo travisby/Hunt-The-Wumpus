@@ -35,6 +35,9 @@ winning state
     | not (Wumpus.alive (wumpus state)) = 2
     | otherwise = 0
 
-makeMoveFromStr "shoot" roomNum state = Player.shoot roomNum (player state) (ourGameMap state)
-makeMoveFromStr "move" roomNum state = Player.shoot roomNum (player state) (ourGameMap state)
+makeMoveFromStr "shoot" roomNum state = State newPlayer newWumpus (ourGameMap state)
+    where
+        newPlayer = Player.shoot (Map.getRoom (ourGameMap state) roomNum) (player state) (ourGameMap state)
+        newWumpus = Wumpus.wumpusIfShot (wumpus state) (Map.getRoom (ourGameMap state) roomNum)
+makeMoveFromStr "move" roomNum state = state
 makeMoveFromStr _ _ _ = error "That was not a valid move!"
