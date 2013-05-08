@@ -1,6 +1,7 @@
 module State (
     State(player, wumpus, ourGameMap),
-    start
+    start,
+    getPossibleRoomsStr
 ) where
 
 import Player
@@ -23,3 +24,5 @@ areThePlayerAndTheWumpusAdjacent state = areTwoRoomsAdjacent (Player.room ourPla
         gameMap = ourGameMap state
 
 getPossibleRooms state = Map.getPossibleRooms (ourGameMap state) (Player.room (player state))
+
+getPossibleRoomsStr state = show (map Map.roomID (State.getPossibleRooms state))
