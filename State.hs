@@ -44,9 +44,10 @@ makeMoveFromStr "shoot" roomNum state = State newPlayer newWumpus (ourGameMap st
 makeMoveFromStr "move" roomNum state = State myPlayer (wumpus state) (ourGameMap state)
     where
         newPlayer = Player.move theRoom (player state) theMap
-        myPlayer = newPlayer
+        myPlayer = if (Player.room newPlayer) == (Wumpus.room theWumpus) then error "You died!" else newPlayer
         theRoom = Map.getRoom theMap (read roomNum :: Int)
         theMap = ourGameMap state
+        theWumpus = wumpus state
 
 makeMoveFromStr _ _ _ = error "That was not a valid move!"
 
