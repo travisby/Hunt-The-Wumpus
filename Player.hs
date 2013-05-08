@@ -17,6 +17,7 @@ move newSpot player gameMap
 
 shoot spot player gameMap
     | areTwoRoomsAdjacent spot (room player) gameMap = Player (room player) (numArrows player - 1) True
+    | numArrows player <= 0 = error "You are out of ammo!"
     | otherwise = error "Cannot shoot into that room"
 
 smell player roomWhereSmellIsComingFrom gameMap
