@@ -21,7 +21,7 @@ type RoomID = Int
 type RoomRoomsRelation = [Int]
 
 getRoom :: Map -> Int -> Room
-getRoom map n = rooms map !! (n + 1)
+getRoom map n = rooms map !! (n - 1)
 
 getAdjacentRoomIDs :: RoomID -> Map -> [RoomID]
 getAdjacentRoomIDs myID myMap = connectedRooms (rooms myMap !! (myID - 1))
