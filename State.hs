@@ -1,7 +1,8 @@
 module State (
     State(player, wumpus, ourGameMap),
     start,
-    getPossibleRoomsStr
+    getPossibleRoomsStr,
+    winning
 ) where
 
 import Player
@@ -26,3 +27,10 @@ areThePlayerAndTheWumpusAdjacent state = areTwoRoomsAdjacent (Player.room ourPla
 getPossibleRooms state = Map.getPossibleRooms (ourGameMap state) (Player.room (player state))
 
 getPossibleRoomsStr state = show (map Map.roomID (State.getPossibleRooms state))
+
+-- Wow, this is a horrible function...
+-- 0 if no winner, 1 if Wumpus wins, 2 if Player Wins...
+winning state
+    | not (Player.alive (player state)) = 1
+    | not (Wumpus.alive (wumpus state)) = 2
+    | otherwise = 0
