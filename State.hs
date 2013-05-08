@@ -37,7 +37,9 @@ winning state
 
 makeMoveFromStr "shoot" roomNum state = State newPlayer newWumpus (ourGameMap state)
     where
-        newPlayer = Player.shoot (Map.getRoom (ourGameMap state) roomNum) (player state) (ourGameMap state)
-        newWumpus = Wumpus.wumpusIfShot (wumpus state) (Map.getRoom (ourGameMap state) roomNum)
+        newPlayer = Player.shoot theRoom (player state) theMap
+        newWumpus = Wumpus.wumpusIfShot (wumpus state) theRoom
+        theRoom = Map.getRoom theMap (read roomNum :: Int)
+        theMap = ourGameMap state
 makeMoveFromStr "move" roomNum state = state
 makeMoveFromStr _ _ _ = error "That was not a valid move!"
