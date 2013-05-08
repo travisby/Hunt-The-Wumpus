@@ -1,6 +1,6 @@
 module Player (
     Player(Player), room, alive,
-    move, shoot
+    move, shoot, smell
 ) where
 
 import Map
