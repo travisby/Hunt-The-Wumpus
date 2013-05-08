@@ -2,7 +2,7 @@ module State (
     State(player, wumpus, ourGameMap),
     start,
     getPossibleRoomsStr,
-    winning, makeMoveFromStr
+    winning, makeMoveFromStr, playerSmell
 ) where
 
 import Player
@@ -49,3 +49,5 @@ makeMoveFromStr "move" roomNum state = State myPlayer (wumpus state) (ourGameMap
         theMap = ourGameMap state
 
 makeMoveFromStr _ _ _ = error "That was not a valid move!"
+
+playerSmell state = Player.smell (player state) (Wumpus.room (wumpus state)) (ourGameMap state)
