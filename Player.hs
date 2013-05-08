@@ -1,5 +1,5 @@
 module Player (
-    Player(Player), room,
+    Player(Player), room, alive,
     move
 ) where
 
@@ -7,7 +7,8 @@ import Map
 
 data Player = Player {
     room        :: Room,
-    numArrows   :: Int
+    numArrows   :: Int,
+    alive       :: Bool
 }
 
 move newSpot player gameMap

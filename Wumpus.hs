@@ -1,12 +1,13 @@
 module Wumpus (
-    Wumpus(Wumpus), room
+    Wumpus(Wumpus), room, alive
 ) where
 
 import Map
 import Data.Random.Extras
 
 data Wumpus = Wumpus {
-    room    :: Room
+    room    :: Room,
+    alive   :: Bool
 }
 
 move newSpot wumpus gameMap

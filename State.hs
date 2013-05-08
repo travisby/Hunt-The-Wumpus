@@ -13,7 +13,7 @@ data State = State {
     ourGameMap  :: Map
 }
 
-start playerStart wumpusStart = State (Player playerStart 3) (Wumpus wumpusStart)
+start playerStart wumpusStart = State (Player playerStart 3 True) (Wumpus wumpusStart True)
     where gameMap = getMap 20
 
 areThePlayerAndTheWumpusAdjacent state = areTwoRoomsAdjacent (Player.room ourPlayer) (Wumpus.room ourWumpus) gameMap
